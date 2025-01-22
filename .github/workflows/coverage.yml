@@ -36,7 +36,6 @@ jobs:
           python -m pip install -U .[test]
 
       - name: Create Coverage Report
-        env:
         run: |
           coverage run -m pytest -v
           coverage html
