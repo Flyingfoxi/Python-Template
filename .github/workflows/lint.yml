@@ -1,0 +1,37 @@
+name: Lint
+
+on:
+  push:
+    branches: [ "main" ]
+
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      PIP_ROOT_USER_ACTION: ignore
+    steps:
+      - name: Dump GitHub context
+        env:
+          - GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: ruff check
+        uses: astral-sh/ruff-action@v3
+        with:
+          version: latest
+          args: check

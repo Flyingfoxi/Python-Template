@@ -40,6 +40,22 @@ ignore = [
     "E501", # line too long, handled by ruff format
 ]
 
-
 [tool.ruff.format]
 quote-style = "double"
+
+[tool.isort]
+profile = "black"
+
+
+[tool.coverage.run]
+source = [
+    "tests",
+    "src"
+]
+
+[tool.coverage.report]
+show_missing = true
+sort = "-Cover"
+
+[tool.coverage.html]
+show_contexts = true
