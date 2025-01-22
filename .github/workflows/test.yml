@@ -37,7 +37,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install -U -r requirements-actions.txt
+          python -m pip install -U .[test]
 
       - name: Testing with pytest
         run: |
