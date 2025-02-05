@@ -45,3 +45,37 @@ jobs:
         with:
           name: Coverage
           path: htmlcov
+
+
+  upload:
+    needs: coverage
+    runs-on: ubuntu-latest
+    env:
+      PIP_ROOT_USER_ACTION: ignore
+      SMOKESHOW_AUTH_KEY: ${{ secrets.SMOKESHOW_AUTH }}
+
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Smokeshow
+        run: pip install smokeshow
+
+      - name: Download Web-Build
+        uses: actions/download-artifact@v4
+        with:
+          name: Coverage
+          path: web-page
+
+      - name: Upload to Smokeshow
+        run: smokeshow upload web-page
