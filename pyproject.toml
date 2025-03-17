@@ -10,7 +10,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [project.optional-dependencies]
-test = ["pytest~=8.3.4", "coverage~=7.6.10"]
+test = ["pytest~=8.3.4", "coverage~=7.7.0"]
 
 dev = [
     "pre-commit~=4.1.0",
